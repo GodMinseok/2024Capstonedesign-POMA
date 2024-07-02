@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="myPageAtag(name)" class="icon-container">
+    <a th:href="@{/user/myPage(sports=${name})}" href="/user/myPage" class="text-white mx-2"><i class="bi bi-person-circle"></i></a>
+</div>
+

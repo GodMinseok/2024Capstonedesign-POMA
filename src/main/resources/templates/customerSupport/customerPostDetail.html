@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터 문의하기 - ExSports</title>
+    <link rel="stylesheet" href="/css/MainPage.css">
+</head>
+<body>
+<header>
+    <a th:href="@{/}" href="mainPage.html">
+        <img class="logo" src="/images/Logo.png" alt="ExSports Logo" />
+    </a>
+    <div>
+        <a th:href="@{/customer}" class="contactButton"><img class="customer" src="/images/call.png" alt="문의하기" /></a>
+        <ul id="results"></ul>
+        <a th:if="${session.user == null}" th:href="@{/user/signin}" href="/templates/user/signin.html"><img class="login" src="/images/Login.png" alt="Login" /></a>
+        <a th:if="${session.user != null}" th:href="@{/user/myPage(sports=futsal)}"><img class="login" src="/images/Login.png" alt="Login" /></a>
+    </div>
+</header>
+<div class="container">
+    <h2>고객센터 문의하기</h2>
+    <div>
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" th:value="${post.title}" readonly>
+
+        <label for="content">내용</label>
+        <textarea id="content" name="content" rows="6" th:text="${post.content}" readonly></textarea>
+        <label for="author">작성자</label>
+        <input type="text" id="author" th:value="${post.user.name}" readonly>
+    </div>
+</div>
+<footer class="b">
+    <p>&copy; ExSports 2024</p>
+    <div class="legal-links">
+        <a href="#">이용약관</a> | <a href="#">개인정보취급방침</a>
+    </div>
+</footer>
+
+<script>
+    function searchFunction() {
+        // 검색 기능 구현 코드
+    }
+</script>
+</body>
+</html>

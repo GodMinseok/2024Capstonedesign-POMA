@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 배상현 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P:A 내정보</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/nav.css}">
+    <link rel="stylesheet" href="../css/sports.css" th:href="@{/css/sports.css}">
+    <style>
+        #pay-btn{
+            border: none;
+            background: none;
+        }
+    </style>
+</head>
+<body>
+<header class="bg-dark text-white py-4" th:replace="fragments/header :: hedaer(${sports})"></header>
+<nav class="bg-secondary py-2" th:replace="fragments/nav :: nav(${sports})"></nav>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="row justify-content-center">
+                <a class="btn btn-primary m-3" th:href="@{/user/matches(sports=${sports})}">매치 참가 이력</a>
+                <a class="btn btn-primary m-3" th:href="@{/user/reservations(sports=${sports})}">구장 예약 이력</a>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <strong th:text="|내 정보 --- ${user.name}님의 정보|">내 정보 --- ex)Sanghyun 님의 정보 </strong>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">ID: <strong th:text="${user.loginId}"></strong></li>
+                        <li class="list-group-item">이름: <strong id="name" th:text="${user.name}"></strong></li>
+                        <li class="list-group-item">팀: <strong th:text="${user.team?.name}"></strong></li>
+                        <li class="list-group-item">이메일: <strong th:text="${user.email}"></strong></li>
+                        <li class="list-group-item">전화번호: <strong th:text="${user.phone}"></strong></li>
+                        <li class="list-group-item">잔액: <strong id="money" th:text="${user.money}"></strong>원
+                            <button id="pay-btn" >
+                                <img th:src="@{/images/kakao_payment_icon.png}">
+                            </button>
+                        </li>
+                        <li class="list-group-item">
+                            <a th:href="@{/user/logout}" href="/user/logout" class="btn btn-danger">로그아웃</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white py-3">
+    <div class="container text-center">
+        <p>&copy; 2024 P:A. All rights reserved.</p>
+
+    </div>
+</footer>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script th:src="@{/js/payment.js}"></script>
+</body>
+</html>

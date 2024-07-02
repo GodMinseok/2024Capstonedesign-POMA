@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <!-- 부트스트랩 CDN 추가 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: content-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #fcfcfc; /* 밝은 파란색으로 배경 변경 */
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        p{
+            font-size: 12px;
+            color: #303030;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #cccccc;
+            margin-bottom: 50px;
+        }
+
+        header img.logo {
+            width: 40%;
+            height: 70px;
+            margin-left: 230px;
+        }
+
+        header div {
+            display: flex;
+            align-items: center;
+            margin-right: 200px;
+            font-size: 13px;
+        }
+
+        header div input {
+            width: auto;
+            height: auto;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            padding: 8px;
+            width: 200px;
+        }
+
+        header div button {
+            border: none; /* 경계선 제거 */
+            background: none; /* 배경색 제거 */
+            padding: 0; /* 내부 여백 제거 */
+            cursor: pointer; /* 마우스 오버 시 커서 모양 변경 */
+
+        }
+        div a img{
+            border-radius: 50%;
+        }
+        header div button:focus {
+            outline: none;
+        }
+
+        header div button:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        header img.searchBtn {
+            width: 60%;
+            height: 60%;
+            display: block; /* 이미지를 블록 요소로 만들어 주변 여백 제거 */
+            border-radius: 50%;
+        }
+        button[type="submit"] {
+            width: 100%;
+            background-color: #eeeeee; /* 버튼 색상 변경 */
+            color: rgb(0, 0, 0);
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        select{
+            width: 100%;
+            padding: 14px 8px;
+            margin: 8px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            border-color: #cccccc;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #ececec;
+        }
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .terms-checkbox #all-terms {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+    </style>
+
+</head>
+<header class="bg-dark text-white py-4" th:replace="fragments/header :: hedaer(${sports})"></header>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+                <div class="form-group">
+                    <label for="id">팀 이름</label>
+                    <input type="text" name="name" class="form-control" id="id" aria-describedby="emailHelp" placeholder="팀 이름을 입력하세요">
+                </div>
+                <button id="joinBtn" class="btn btn-primary">생성 하기</button>
+        </div>
+    </div>
+</div>
+<!-- 부트스트랩 스크립트 추가 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById("joinBtn").addEventListener("click", function (e) {
+        let urlSearch = new URLSearchParams(location.search);
+        let sports = urlSearch.get('sports')
+        let name = document.getElementsByName('name')[0].value;
+        async function validateTeam() {
+            const headers = {
+                "Content-Type": "text/plain;charset=UTF-8",
+                "x-requested-with": "XMLHttpRequest",
+            };
+            const body = name;
+            try {
+                const response = await fetch("http://localhost:8080/team", {
+                    method: "POST", headers: headers, body: body
+                });
+                const data = await response.json();
+
+                if (data === true) window.location.href = "/teams?sports="+sports;
+                else alert("이미 사용중인 팀 이름입니다!")
+            } catch (error) {
+                console.error("fetch error")
+            }
+        }
+
+        validateTeam()
+    })
+</script>
+</body>
+</html>

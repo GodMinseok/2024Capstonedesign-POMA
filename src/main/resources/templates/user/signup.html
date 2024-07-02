@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <!-- 부트스트랩 CDN 추가 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: content-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #fcfcfc; /* 밝은 파란색으로 배경 변경 */
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        p {
+            font-size: 12px;
+            color: #303030;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #cccccc;
+            margin-bottom: 50px;
+        }
+
+        header img.logo {
+            width: 40%;
+            height: 70px;
+            margin-left: 230px;
+        }
+
+        header div {
+            display: flex;
+            align-items: center;
+            margin-right: 200px;
+            font-size: 13px;
+        }
+
+        header div input {
+            width: auto;
+            height: auto;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            padding: 8px;
+            width: 200px;
+        }
+
+        header div button {
+            border: none; /* 경계선 제거 */
+            background: none; /* 배경색 제거 */
+            padding: 0; /* 내부 여백 제거 */
+            cursor: pointer; /* 마우스 오버 시 커서 모양 변경 */
+
+        }
+
+        div a img {
+            border-radius: 50%;
+        }
+
+        header div button:focus {
+            outline: none;
+        }
+
+        header div button:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        header img.searchBtn {
+            width: 60%;
+            height: 60%;
+            display: block; /* 이미지를 블록 요소로 만들어 주변 여백 제거 */
+            border-radius: 50%;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            background-color: #eeeeee; /* 버튼 색상 변경 */
+            color: rgb(0, 0, 0);
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        select {
+            width: 100%;
+            padding: 14px 8px;
+            margin: 8px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            border-color: #cccccc;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #ececec;
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .terms-checkbox #all-terms {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .customer{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+    </style>
+
+</head>
+<header>
+    <a th:href="@{/}" href="MainPage.html">
+        <img class="logo" src="/images/Logo.png" alt="..."/>
+    </a>
+    <div>
+        <ul id="results"></ul>
+        <a th:href="@{/customer}" class="contactButton"><img class="customer" src="/images/call.png" alt="문의하기" /></a>
+        <a th:href="@{/user/signin}" href="signin.html"><img class="login" src="/images/Login.png" alt="..."/>
+        </a>
+    </div>
+</header>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="/user/signup" method="POST" id="my-form">
+                <div class="form-group">
+                    <label for="id">아이디</label>
+                    <input type="text" name="loginId" class="form-control" id="id" aria-describedby="emailHelp"
+                           placeholder="아이디를 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label for="password">비밀번호</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요">
+                    <p>&nbsp; 8자 이상의 영어,특수문자를 포함하여 설정해주세요</p>
+                </div>
+                <div class="form-group">
+                    <label for="passwordCheck">비밀번호 확인</label>
+                    <input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호를 한 번 더 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp"
+                           placeholder="이름을 입력하세요">
+                    <p>&nbsp; 2자 이상 10자 이하의 한글/영어로 설정해주세요</p>
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
+                           placeholder="이메일을 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label for="gender">성별:</label>
+                    <select id="gender" name="gender">
+                        <option value="">선택하세요</option>
+                        <option value="MALE">남성</option>
+                        <option value="FEMALE">여성</option>
+                        <!--<option value="OTHER">기타</option> 매치 성별 모집할때 곤란해서 일단 주석처리 할게요-->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="phone">연락처</label>
+                    <input type="text" name="phone" class="form-control" id="phone" placeholder="예) 01012345678">
+                </div>
+                <div class="form-group">
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="all-terms" name="all-terms">
+                        <label for="all-terms">전체 동의</label>
+                    </div>
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="terms1" name="terms1">
+                        <label for="terms1">이용 약관 동의</label>
+                    </div>
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="terms2" name="terms2">
+                        <label for="terms2">개인정보 수집 및 이용 동의</label>
+                    </div>
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="terms3" name="terms3">
+                        <label for="terms3">만 14세 이상입니다</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">가입하기</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 부트스트랩 스크립트 추가 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script th:src="@{/js/signup.js}" src="../../static/js/signup.js"></script>
+</body>
+</html>

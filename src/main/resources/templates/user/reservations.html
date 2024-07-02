@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 배상현 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P:A 내정보</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/sports.css" th:href="@{/css/sports.css}">
+</head>
+<body>
+<header class="bg-dark text-white py-4" th:replace="fragments/header :: hedaer(${sports})"></header>
+<nav class="bg-secondary py-2" th:replace="fragments/nav :: nav(${sports})"></nav>
+<div class="container mt-5">
+    <h3 class="text-center">구장 예약 이력</h3>
+    <div class="row justify-content-center">
+        <div class="card m-4" th:each="reservation : ${reservations}">
+            <div class="card-body">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item">구장: <strong th:text="|(${reservation.ground.location}) ${reservation.ground.name}|"></strong></li>
+                    <li class="list-group-item">시간: <strong th:text="|${reservation.reservationYmd} - ${reservation.reservationTime}시|"></strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white py-3">
+    <div class="container text-center">
+        <p>&copy; 2024 P:A. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header class="bg-light text-dark py-4" th:fragment="hedaer(name)">
+    <div class="container d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <div>
+                <a th:href="@{/}">
+                    <img th:src="@{/images/Logo.png}" alt="POMA 로고" style="width: 100px;">
+                </a>
+            </div>
+        </div>
+        <div class="icon-container">
+            <a th:href="@{/user/myPage(sports=${name})}" href="/user/myPage" class="text-dark mx-2">
+                <i class="bi bi-person-circle"></i>
+            </a>
+        </div>
+    </div>
+</header>
+

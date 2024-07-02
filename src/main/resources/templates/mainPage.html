@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExSports</title>
+    <link rel="stylesheet" href="/css/MainPage.css">
+</head>
+<body>
+<header>
+    <a th:href="@{/}" href="mainPage.html">
+        <img class="logo" src="/images/Logo.png" alt="ExSports Logo" />
+    </a>
+    <div>
+        <ul id="results"></ul>
+        <a th:href="@{/customer}" class="contactButton"><img class="customer" src="/images/call.png" alt="문의하기" /></a>
+        <a th:if="${session.user == null}" th:href="@{/user/signin}" href="/templates/user/signin.html"><img class="login" src="/images/Login.png" alt="Login" /></a>
+        <a th:if="${session.user != null}" th:href="@{/user/myPage(sports=futsal)}"><img class="login" src="/images/Login.png" alt="Login" /></a>
+    </div>
+</header>
+<div class="containers">
+    <section id="home" class="section">
+        <a class="admin-btn btn btn-primary" th:if="${session.user != null && session.user.authority.toString().contains('ADMIN')}" th:href="@{/admin}">
+            관리자 페이지
+        </a>
+        <div class="container px-4 px-lg-5 mt-0">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <a href="/social/futsal">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="/sports-icon/futsal.svg" alt="풋살" />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">풋살</h5>
+                                    Futsal
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="/social/tennis">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="/sports-icon/tennis.svg" alt="테니스" />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">테니스</h5>
+                                    Tennis
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="/social/basketball">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="/sports-icon/basketball.svg" alt="농구" />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">농구</h5>
+                                    Basketball
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="/social/badminton">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="/sports-icon/badminton.svg" alt="배드민턴" />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">배드민턴</h5>
+                                    Badminton
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="/social/billiard">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="/sports-icon/billiard.svg" alt="당구" />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">당구</h5>
+                                    Billiard
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="/social/bowling">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="/sports-icon/bowling.svg" alt="볼링" />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">볼링</h5>
+                                    Bowling
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="/social/soccer">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="/sports-icon/soccer.svg" alt="축구" />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">축구</h5>
+                                    Football
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="/social/tableTennis">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="/sports-icon/tableTennis.svg" alt="탁구" />
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">탁구</h5>
+                                    Table-Tennis
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section id="about" class="section">
+        <div class="container">
+            <h2>POMA</h2>
+            <p>구기 운동인 풋살, 테니스, 농구, 배드민턴, 당구, 볼링, 축구, 탁구 이 8가지 종목 중에
+                하나를 선택해 동호회에 가입하고 구장 예약을 해주는 시스템을 구성하는 웹사이트입니다.</p>
+        </div>
+    </section>
+    <section id="clubs" class="section">
+        <div class="container">
+            <h2>동호회 소개</h2>
+            <p>ExSports는 다양한 스포츠 동호회를 소개합니다. 아래는 몇 가지 동호회의 예시입니다:</p>
+            <div class="club">
+                <h3>풋살 클럽</h3>
+                <p>풋살을 즐기는 사람들의 모임으로, 주말마다 경기를 진행하고 있습니다.</p>
+            </div>
+            <div class="club">
+                <h3>테니스 클럽</h3>
+                <p>테니스를 즐기는 사람들을 위한 클럽으로, 주변 코트에서 연습 및 경기를 진행합니다.</p>
+            </div>
+            <div class="club">
+                <h3>농구 클럽</h3>
+                <p>농구를 즐기는 사람들을 위한 클럽으로, 주로 실내 코트에서 연습 및 경기를 진행합니다.</p>
+            </div>
+            <div class="club">
+                <h3>배드민턴 클럽</h3>
+                <p>배드민턴을 즐기는 사람들을 위한 클럽으로, 주로 체육관에서 연습 및 경기를 진행합니다.</p>
+            </div>
+            <div class="club">
+                <h3>당구 클럽</h3>
+                <p>당구를 즐기는 사람들을 위한 클럽으로, 주로 당구장에서 연습 및 게임을 즐깁니다.</p>
+            </div>
+            <div class="club">
+                <h3>볼링 클럽</h3>
+                <p>볼링을 즐기는 사람들을 위한 클럽으로, 볼링장에서 주로 활동합니다.</p>
+            </div>
+            <div class="club">
+                <h3>축구 클럽</h3>
+                <p>축구를 즐기는 사람들을 위한 클럽으로, 주로 축구장에서 연습 및 경기를 진행합니다.</p>
+            </div>
+            <div class="club">
+                <h3>탁구 클럽</h3>
+                <p>탁구를 즐기는 사람들을 위한 클럽으로, 주로 탁구장에서 연습 및 게임을 즐깁니다.</p>
+            </div>
+        </div>
+    </section>
+</div>
+<footer>
+    <p>&copy; ExSports 2024</p>
+    <div class="legal-links">
+        <a href="#">이용약관</a> | <a href="#">개인정보취급방침</a>
+    </div>
+</footer>
+<script>
+    function searchFunction() {
+        // 검색 기능 구현 코드
+    }
+</script>
+</body>
+</html>

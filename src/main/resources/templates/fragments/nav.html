@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<nav th:fragment="nav(name)" class="bg-light py-2">
+    <div class="container text-center">
+        <a href="mentoMentee.html" th:href="@{/mentor/review(sports=${name})}" class="text-decoration-none text-dark  mx-2" id="mentor-mentee">멘토-멘티</a>
+        <a href="sports_team.html" th:href="@{/team/{sports}(sports=${name})}" class="text-decoration-none text-dark mx-2" id="team-match">팀 매치</a>
+        <a href="mercenaryMatching.html" th:href="@{/mercenary/{sports}(sports=${name})}" class="text-decoration-none text-dark mx-2" id="mercenary-match">용병 매치</a>
+        <a href="socialMatch.html" th:href="@{/social/{sports}(sports=${name})}" class="text-decoration-none text-dark mx-2" id="social-match">소셜 매치</a>
+        <a href="groundReservation.html" th:href="@{/reservation/{sports}(sports=${name})}" class="text-decoration-none text-dark mx-2" id="ground-reservation">구장 예약</a>
+        <a href="" th:href="@{/teams(sports=${name})}" class="text-decoration-none text-dark mx-2" id="teams">팀 선택</a>
+    </div>
+</nav>

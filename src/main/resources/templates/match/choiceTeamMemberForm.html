@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Match 인원 선발</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .match-info {
+            margin-bottom: 20px;
+        }
+
+        .match-info label {
+            font-weight: bold;
+        }
+
+        .match-info span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #sports, #teamMatchId {
+            display: none;
+        }
+    </style>
+    <!-- 부트스트랩 CDN 추가 -->
+</head>
+<body>
+<div class="container">
+    <h1 th:text="|Team Match 인원 선발(${teamMatch.maxSize/2}명)|"></h1>
+    <h1>멤버 목록</h1>
+    <div>
+        <span th:text="${teamMatch.sports}" id="sports" class="d-none"></span>
+        <span th:text="${teamMatch.id}" id="teamMatchId" class="d-none"></span>
+        <div class="match-info" th:each="user : ${users}">
+            <input th:id="|label${user.id}|" type='checkbox' name='userIdList' th:value="${user.id}"/>
+            <label th:for="|label${user.id}|" th:text="|${user.name}|"></label><br>
+        </div>
+        <button id="applyButton">신청하기</button>
+    </div>
+</div>
+<script th:src="@{/js/choiceTeamMemberForm.js}"></script>
+</body>
+</html>
